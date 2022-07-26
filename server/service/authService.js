@@ -1,10 +1,16 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const { findUserByProperty, createNewUser } = require("./user");
+const { findUserByProperty, createNewUser } = require("./userService");
 const error = require("./../utils/error");
 
-const registerService = async ({ name, email, password }) => {
+const registerService = async ({
+  name,
+  email,
+  password,
+  roles,
+  accountStatus,
+}) => {
   let user = await findUserByProperty("email", email);
 
   if (user) {
@@ -13,7 +19,13 @@ const registerService = async ({ name, email, password }) => {
 
   const hashedPassword = await bcrypt.hash(password, 11);
 
-  return createNewUser({ name, email, password: hashedPassword });
+  return createNewUser({
+    name,
+    email,
+    password: hashedPassword,
+    roles,
+    accountStatus,
+  });
 };
 
 const loginService = async ({ email, password }) => {

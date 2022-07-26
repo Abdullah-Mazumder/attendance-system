@@ -3,7 +3,7 @@ const express = require("express");
 
 const connectDB = require("./db");
 const authenticate = require("./middlewares/authenticate");
-const routes = require("./routes/index");
+const routes = require("./routes/indexRoutes");
 
 const app = express();
 
